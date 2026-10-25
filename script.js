@@ -1,7 +1,7 @@
 const CONFIG = {
-  tokenAddress: "9rzRfWAFzjkV7HMm36M1ZSh7JUf4S8pw6UeZdPdLpump",
+  tokenAddress: "",
   pumpFunUrl: "",
-  twitter: "https://x.com/trumponsol_x",
+  twitter: "",
   telegram: "",
 };
 
@@ -68,15 +68,23 @@ function initSocialLinks() {
   const pumpUrl = getPumpFunUrl();
 
   document.querySelectorAll("[data-pumpfun]").forEach((el) => {
+    if (!CONFIG.tokenAddress) return;
     el.href = pumpUrl;
+    el.target = "_blank";
+    el.rel = "noopener noreferrer";
+    if (el.dataset.buyLabel) el.textContent = el.dataset.buyLabel;
   });
 
   document.querySelectorAll("[data-telegram]").forEach((el) => {
-    if (CONFIG.telegram) el.href = CONFIG.telegram;
+    if (!CONFIG.telegram) return;
+    el.href = CONFIG.telegram;
+    el.hidden = false;
   });
 
   document.querySelectorAll("[data-twitter]").forEach((el) => {
-    if (CONFIG.twitter) el.href = CONFIG.twitter;
+    if (!CONFIG.twitter) return;
+    el.href = CONFIG.twitter;
+    el.hidden = false;
   });
 }
 
